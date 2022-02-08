@@ -3,24 +3,26 @@
 
 import * as React from 'react'
 
-function Greeting({initialName = ''}) {
-    // console.log('rendering');
-
-    // const getInitialValue = () => { 
-    //     console.log('getting initial value');
-    //     return window.localStorage.getItem('name') || initialName
-    // }
-
-    const [name, setName] = React.useState(() => window.localStorage.getItem('name') || initialName)
-
+const useLocalStorageState = (key, defaulValue = '') => {
+    const [state, setState] = React.useState(
+        () => window.localStorage.getItem(key) || defaulValue
+    )
+    
     React.useEffect(() => {
-        window.localStorage.setItem('name', name) // often you don't use this lazy initialization feature, only when doing something that is computationally expensive, and don't want it to run every single render
-        //   console.log( window.localStorage.setItem('name', name) )
-    },[name])
+        window.localStorage.setItem(key, state)
+       
+    }, [key, state])
+
+    return [state, setState]
+}
+
+function Greeting({initialName = ''}) {
+    const [name, setName] = useLocalStorageState('name', initialName)
 
     function handleChange(event) {
         setName(event.target.value)
     }
+
     return (
         <div>
         <form>
