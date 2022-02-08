@@ -4,26 +4,32 @@
 import * as React from 'react'
 
 function Greeting({initialName = ''}) {
-  const [name, setName] = React.useState(
-  window.localStorage.getItem('name') || initialName)
+    // console.log('rendering');
 
-  React.useEffect(() => {
-      window.localStorage.setItem('name', name) 
-      console.log( window.localStorage.setItem('name', name) )
-  })
+    // const getInitialValue = () => { 
+    //     console.log('getting initial value');
+    //     return window.localStorage.getItem('name') || initialName
+    // }
 
-  function handleChange(event) {
-    setName(event.target.value)
-  }
-  return (
-    <div>
-      <form>
-        <label htmlFor="name">Name: </label>
-        <input value={name} onChange={handleChange} id="name" />
-      </form>
-      {name ? <strong>Hello {name}</strong> : 'Please type your name'}
-    </div>
-  )
+    const [name, setName] = React.useState(() => window.localStorage.getItem('name') || initialName)
+
+    React.useEffect(() => {
+        window.localStorage.setItem('name', name) // often you don't use this lazy initialization feature, only when doing something that is computationally expensive, and don't want it to run every single render
+        //   console.log( window.localStorage.setItem('name', name) )
+    })
+
+    function handleChange(event) {
+        setName(event.target.value)
+    }
+    return (
+        <div>
+        <form>
+            <label htmlFor="name">Name: </label>
+            <input value={name} onChange={handleChange} id="name" />
+        </form>
+        {name ? <strong>Hello {name}</strong> : 'Please type your name'}
+        </div>
+    )
 }
 
 function App() {
