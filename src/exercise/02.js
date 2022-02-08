@@ -16,7 +16,7 @@ function Greeting({initialName = ''}) {
     React.useEffect(() => {
         window.localStorage.setItem('name', name) // often you don't use this lazy initialization feature, only when doing something that is computationally expensive, and don't want it to run every single render
         //   console.log( window.localStorage.setItem('name', name) )
-    })
+    },[name])
 
     function handleChange(event) {
         setName(event.target.value)
