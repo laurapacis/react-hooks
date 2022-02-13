@@ -6,12 +6,12 @@ import * as React from 'react'
 // eslint-disable-next-line
 function Name() {
     const [name, setName] = React.useState('')
-  return (
-    <div>
-      <label htmlFor="name">Name: </label>
-      <input id="name" value={name} onChange={event => setName(event.target.value)} />
-    </div>
-  )
+    return (
+        <div>
+        <label htmlFor="name">Name: </label>
+        <input id="name" value={name} onChange={event => setName(event.target.value)} />
+        </div>
+    )
 }
 
 function FavoriteAnimal({animal, onAnimalChange}) {
